@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from todo.views import get_todo_list
+from tame import views
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path('get_todo_list/', get_todo_list, name='get_todo_list'),
+    path('', views.home, name="home"),
+    path('findbus', views.findtable, name="findbus"),
+    path('bookings', views.bookings, name="bookings"),
+    path('cancellings', views.cancellings, name="cancellings"),
+    path('mybookings', views.mybookings, name="mybookings"),
+    path('signup', views.signup, name="signup"),
+    path('signin', views.signin, name="signin"),
+    path('success', views.success, name="success"),
+    path('signout', views.signout, name="signout"),
+
 ]
