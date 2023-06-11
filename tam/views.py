@@ -23,16 +23,16 @@ def home(request):
 def findtable(request):
     context = {}
     if request.method == 'POST':
-        number_seats = request.POST.get('number_seats')
+        nos = request.POST.get('nos')
         date = request.POST.get('date')
-        time = request.POST.get('time')
         table_list = Table.objects.filter(
-            number_seats=number_seats, date=date, time=time)
+            nos=nos, date=date,)
         if table_list:
-            return render(request, 'tam/table_list.html', locals())
-        else:
             context["error"] = "Sorry table is fullybooked"
             return render(request, 'tam/findtable.html', context)
+        else:
+            return render(request, 'tam/table_list.html', locals())
+            
     else:
         return render(request, 'tam/findtable.html.html')
 
@@ -41,23 +41,25 @@ def findtable(request):
 def bookings(request):
     context = {}
     if request.method == 'POST':
-        id_t = request.POST.get('table_id')
-        nos = int(request.POST.get('no_seats'))
-        table = Table.objects.get(id=id_t)
+        id_table = request.POST.get('table_id')
+        nos = int(request.POST.get('nos'))
+        nota = int(request.POST.get('nota'))
+        table = Table.objects.get(id=id_table)
         if table:
-            if table.length < 10:
+            if table.rem > nota :
                 table_n = table.table_name
-                nos = table.number_seats
+                nos = table.nos
+                nota = table.nota
                 date = table.date
                 time = table.time
                 name = request.user.username
                 email = request.user.email
                 userid = request.user.id
-                rem_t = table.totallength - table.length
-                Table.objects.filter(id=id_t).update(rem=rem_t)
+                rem_table = table.rem - nota 
+                Table.objects.filter(id=id_t).update(rem=rem_table)
                 book = Book.objects.create(username=username, email=email,
                                            userid=userid, table_name=table_n, tableid=id_t,
-                                           number_s=nos, date=date, time=time, status='BOOKED')
+                                           nos=nos, nota=nota,date=date, time=time, status='BOOKED')
 
                 print('------------book id-----------', book.id)
                 # book.save()
@@ -74,7 +76,7 @@ def bookings(request):
 def cancellings(request):
     context = {}
     if request.method == 'POST':
-        id_t = request.POST.get('table_id')
+        id_table= request.POST.get('table_id')
         # seats_r = int(request.POST.get('no_seats'))
 
         try:

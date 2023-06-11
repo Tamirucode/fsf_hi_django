@@ -6,7 +6,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
-    path('findbus', views.findtable, name="findbus"),
+    path('findtable', views.findtable, name="findtable"),
     path('bookings', views.bookings, name="bookings"),
     path('cancellings', views.cancellings, name="cancellings"),
     path('mybookings', views.mybookings, name="mybookings"),
