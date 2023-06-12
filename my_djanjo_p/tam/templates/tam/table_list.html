@@ -1,0 +1,63 @@
+{% extends 'tam/base.html' %}
+{% block content %}
+<h3>{{msg}}</h3>
+<h2>List of Tables</h2>
+<table class="table table-striped">
+    <thead style="background-color: blue;color: white;">
+        <td>BOOKING ID</td>
+        <td>USER NAME</td>
+        <td>TABLE NAME </td>
+        <td>TABLE NUMBERE </td>
+        <td>NUMBERE OF SEATS</td>
+        <td>NUMBERE OF TABLE REM </td>
+        <td>DATE</td>
+        <td>TIME</td>
+        <td>STATUS</td>
+
+
+    </thead>
+
+    {% for row in table_list %}
+    <tr>
+        <td>{{row.id}}</td>
+        <td>{{row.name}}</td>
+        <td>{{row.table_name}}</td>
+        <td>{{row.table_number }}</td>
+        <td>{{row.nos}}</td>
+        <td>{{row.rem}}</td>
+        <td>{{row.date}}</td>
+        <td>{{row.time}}</td>
+        <td>{{row.status}}</td>
+
+
+    </tr>
+    {% endfor %}
+</table>
+<form action="{% url 'bookings' %}" method="post">
+    <h3>Choose table to book</h3>
+    {% csrf_token %}
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">Table ID</label>
+        <div class="col-5">
+            <input name='table_id' class="form-control" type="number" id="example-email-input">
+        </div>
+    </div>
+    <div class="col-auto">
+        <label for="user_id" class="col-2 col-form-label">Username</label>
+        <div class="col-5">
+            <input name='username' class="form-control" type="username" id="user_id">
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-success float-right" >Book now </button>
+    </div>
+
+
+    {{error}}
+
+</form>
+
+{% endblock %}
