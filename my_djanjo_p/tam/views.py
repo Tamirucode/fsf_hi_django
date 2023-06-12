@@ -25,8 +25,9 @@ def findtable(request):
     if request.method == 'POST':
         nos = request.POST.get('nos')
         date = request.POST.get('date')
+        time = request.POST.get('time')
         table_list = Table.objects.filter(
-            nos=nos, date=date,)
+            nos=nos, date=date,time =time)
         if table_list:
              return render(request, 'tam/table_list.html', locals())
         else:
@@ -44,25 +45,25 @@ def bookings(request):
         id_table = request.POST.get('table_id')
         nos = request.POST.get('nos')
         table_number=request.POST.get('table_number')
-        table = Table.objects.get(id=id_table)
+        table = Table.objects.get(table_id=id_table)
         if table:
-            if 0 < table.table_number < 10:
+            if table.table_number <= 10:
                 table_name = table.table_name
                 nos = table.nos
                 date = table.date
                 time = table.time
                 email = request.user.email
                 user_id = request.user.id
-                book = Book.objects.create( email=email,
-                                           user_id=id_user, table_name=table_name, table_id=id_table,
+                book = Book.objects.create(email=email, id_table=table_id, user_id=id_user,
+                                            table_name=table_name,
                                            nos=nos, date=date, time=time, status='BOOKED')
 
-                print('------------book id-----------', book.id)
+                
                 book.save()
                 
                 return render(request, 'tam/bookings.html', locals())
             else:
-                context["error"] = "Sorry you select booked table"
+                context["error"] = "Sorry you select unavilable table"
                 return render(request, 'tam/findtable.html', context)
 
     else:
@@ -77,12 +78,12 @@ def cancellings(request):
         # seats_r = int(request.POST.get('no_seats'))
 
         try:
-            book = Book.objects.get(id=id_table)
-            table = Table.objects.get(id=book.table_id)
+            book = Book.objects.get(id=user_id)
+            table = Table.objects.get(id=book.tableid)
             
-            Table.objects.filter(id=book.table_id).update(table_number)
+            Table.objects.filter(id=book.tableid).update(table_number)
             # nos_r = book.nos - seats_r
-            Book.objects.filter(id=id_table).update(status='CANCELLED')
+            Book.objects.filter(id=user_id).update(status='CANCELLED')
             
             return redirect(mybookings)
         except Book.DoesNotExist:
@@ -95,8 +96,8 @@ def cancellings(request):
 @login_required(login_url='signin')
 def mybookings(request, new={}):
     context = {}
-    id_user = request.user.id
-    book_list = Book.objects.filter(user_id=id_user)
+    user_id= request.user.id
+    book_list = Book.objects.filter(user_id=userid)
     if book_list:
         return render(request, 'tam/book_list.html', locals())
     else:

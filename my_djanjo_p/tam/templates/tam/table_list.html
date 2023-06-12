@@ -5,16 +5,12 @@
 <table class="table table-striped">
     <thead style="background-color: blue;color: white;">
         <td>ID</td>
-       
         <td>TABLE NAME </td>
         <td>TABLE NUMBERE </td>
         <td>NUMBERE OF SEATS</td>
-        
         <td>DATE</td>
         <td>TIME</td>
         <td>STATUS</td>
-
-
     </thead>
 
     {% for row in table_list %}
@@ -46,10 +42,12 @@
         
     </div>
     <br>
-    <br>
-    <div class="pull-right">
-        <button type="submit" class="btn btn-success float-right" >Book now </button>
+
+    <div class="">
+       
+        <button type="submit" class="btn btn-success center" >Book now </button>
     </div>
+    
 
 
     {{error}}
