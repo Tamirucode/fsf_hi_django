@@ -31,7 +31,7 @@ def findtable(request):
              return render(request, 'tam/table_list.html', locals())
         else:
            
-            context["error"] = "Sorry table is fullybooked"
+            context["error"] = "Sorry table is not avilable"
             return render(request, 'tam/findtable.html', context)
     else:
         return render(request, 'tam/findtable.html')
@@ -46,25 +46,23 @@ def bookings(request):
         table_number=request.POST.get('table_number')
         table = Table.objects.get(id=id_table)
         if table:
-            if table.rem > 0 :
+            if 0 < table.table_number < 10:
                 table_name = table.table_name
                 nos = table.nos
                 date = table.date
                 time = table.time
-                name = request.user.username
                 email = request.user.email
                 user_id = request.user.id
-                rem_table = (table.rem) - (table_number)
-                Table.objects.filter(id=id_table).update(rem=rem_table)
-                book = Book.objects.create(name=username, email=email,
+                book = Book.objects.create( email=email,
                                            user_id=id_user, table_name=table_name, table_id=id_table,
                                            nos=nos, date=date, time=time, status='BOOKED')
 
                 print('------------book id-----------', book.id)
-                # book.save()
+                book.save()
+                
                 return render(request, 'tam/bookings.html', locals())
             else:
-                context["error"] = "Sorry select fewer number of seats"
+                context["error"] = "Sorry you select booked table"
                 return render(request, 'tam/findtable.html', context)
 
     else:
@@ -81,11 +79,11 @@ def cancellings(request):
         try:
             book = Book.objects.get(id=id_table)
             table = Table.objects.get(id=book.table_id)
-            rem_table = table.rem + book.nos
-            Table.objects.filter(id=book.table_id).update(rem=rem_t)
+            
+            Table.objects.filter(id=book.table_id).update(table_number)
             # nos_r = book.nos - seats_r
             Book.objects.filter(id=id_table).update(status='CANCELLED')
-            Book.objects.filter(id=id_table).update(nos=0)
+            
             return redirect(mybookings)
         except Book.DoesNotExist:
             context["error"] = "Sorry You have not booked that table"
