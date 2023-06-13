@@ -7,13 +7,7 @@
             <form action="{% url 'findtable' %}" method="post">
                 {% csrf_token %}
                 
-                <div class="form-group row">
-                    <label for="example-email-input" class="col-2 col-form-label">Number of seats</label>
-                    <div class="col-10">
-                        <input name='nos' class="form-control" type="number" max="5" min="1"required>
-                    </div> 
-                    
-                </div>
+               
                 <div class="form-group row">
                     <label for="example-email-input" class="col-2 col-form-label">Choose Date</label>
                     <div class="col-10">

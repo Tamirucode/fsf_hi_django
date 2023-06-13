@@ -7,7 +7,7 @@ class Table(models.Model):
     table_name = models.CharField(max_length=20)
     table_number = models.DecimalField(decimal_places=0, max_digits=2)
     nos = models.DecimalField(decimal_places=0, max_digits=2)
-    
+    reservt = models.DecimalField(decimal_places=0,default=10, max_digits=2)
     date = models.DateField()
     time = models.TimeField()
 
