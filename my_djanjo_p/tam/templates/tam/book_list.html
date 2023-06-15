@@ -7,46 +7,54 @@
         <td>BOOKING ID</td>
         <td>USERNAME</td>
         <td>TABLE NAME</td>
-        <td>TABLE NUMBER </td>
+        <td>BOOKED TABLE </td>
+        <td>RESERVE TABLE</td>
         <td>NUM OF SEATS</td>
         <td>DATE</td>
         <td>TIME</td>
-        <td>STATUS</td>
+        
     </thead>
 
     {% for row in book_list %}
     <tr>
+        {% if table.booked %}
+        <td><h3>you have already book {{book.reservt}}</h3></td>
+        <td><h3>Date of booking:{{book.date}}</h3></td>
+        <td><h3>Time of booking:{{book.time}}</h3></td>
+        {% endif %}
         <td>{{row.id}}</td>
         <td>{{row.name}}</td>
         <td>{{row.table_name}}</td>
-        <td>{row.table_number}</td>
+        <td>{{row.reservt}}</td>
+        <td>{{row.bkt}}</td>
         <td>{{row.nos}}</td>
         <td>{{row.date}}</td>
         <td>{{row.time}}</td>
-        <td>{{row.status}}</td>
-
-
+        
     </tr>
+    {% empty %}
+   <tr><td> <h2>You have no booking</h2></td></tr>
+
     {% endfor %}
 </table>
-<form action="{% url 'cancellings' %}" method="post">
-    <h3>Choose table to cancel</h3>
+<form action="{% url 'deleting' %}" method="post">
+    <h3>Choose booking id to delete </h3>
     {% csrf_token %}
     <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">Table ID</label>
+        <label for="example-email-input" class="col-2 col-form-label">Booking Id</label>
         <div class="col-5">
-            <input name='table_id' class="form-control" type="number" id="example-email-input">
+            <input name='table_id' class="form-control" type="number" id="example-email-input" required>
         </div>
     </div>
 
     <br>
     <br>
     <div class="pull-right">
-        <button type="submit" class="btn btn-danger float-left">Cancel table</button>
+        <button type="submit" class="btn btn-danger float-left">delete booking</button>
     </div>
 
 
-    {{error}}
+    
 
 </form>
 

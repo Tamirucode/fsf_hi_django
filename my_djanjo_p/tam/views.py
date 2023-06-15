@@ -26,7 +26,7 @@ def findtable(request):
         
         date = request.POST.get('date')
         time = request.POST.get('time')
-        table_number = request.POST.get('nost')
+        reservt = request.POST.get('reservt')
         table_list = Table.objects.filter(
              date=date,)
         if table_list:
@@ -44,30 +44,30 @@ def bookings(request):
     context = {}
     if request.method == 'POST':
         id_table = request.POST.get('table_id')
-        number_seats = request.POST.get('nos')
-        table_number=request.POST.get('table_number')
+        reservt = request.POST.get('reservt')
+        
         table = Table.objects.get(id=id_table)
         if table:
-            if table.reservt > table_number:
+            if table.reservt > int(bkt):
                 table_name = table.table_name
-                nos = table.nos
                 date = table.date
+                booked_table= table.booked_table
                 time = table.time
                 username = request.user.username 
                 email = request.user.email
                 user_id = request.user.id
-                x = table.reservt - table_number
+                x = table.reservt - booked_table
                 Table.objects.filter(id=id_table).update(reservt=x)
-                book = Book.objects.create( name=username, email=email, id_table=table_id, user_id=id_user,
-                                            table_name=table_name,
-                                           nos=nos, date=date, time=time, status='BOOKED')
+                book = Book.objects.create(name=username, email=email, tableid=id_table, userid=user_id,
+                                            table_name=table_name, reservt=reservt, booked_table=booked_table,
+                                           nos=nos, date=date, time=time)
 
                 
                 book.save()
                 
                 return render(request, 'tam/bookings.html', locals())
             else:
-                context["error"] = "Sorry you select unavilable table"
+                context["error"] = "Sorry table is fullybooked"
                 return render(request, 'tam/findtable.html', context)
 
     else:
@@ -75,7 +75,7 @@ def bookings(request):
 
 
 @login_required(login_url='signin')
-def cancellings(request):
+def deleting(request):
     context = {}
     if request.method == 'POST':
         id_table= request.POST.get('table_id')
@@ -84,12 +84,12 @@ def cancellings(request):
         try:
             book = Book.objects.get(id=id_table)
             table = Table.objects.get(id=book.tableid)
-            x = table.reservt + book.table_number
+            x = table.reservt + book.booked_table
             Table.objects.filter(id=book.tableid).update(reservt=x)
             # nos_r = book.nos - seats_r
-            Book.objects.filter(id=id_table).update(status='CANCELLED')
-            Book.objects.filter(id=id_table).update(table_number=0)
-            return redirect(mybookings)
+            Book.objects.filter(id=id_table).delete()
+            Book.objects.filter(id=id_table).update(booked_table=0)
+            return redirect('mybookings')
         except Book.DoesNotExist:
             context["error"] = "Sorry You have not booked that table"
             return render(request, 'tam/error.html', context)
@@ -106,7 +106,7 @@ def mybookings(request, new={}):
         return render(request, 'tam/book_list.html', locals())
     else:
         context["error"] = "Sorry no table booked"
-        return render(request, 'tam/findtable.html', context)
+        return render(request, 'tam/book_list.html', context)
 
 
 def signup(request):

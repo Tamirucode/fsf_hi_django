@@ -6,24 +6,24 @@
     <thead style="background-color: blue;color: white;">
         <td>ID</td>
         <td>TABLE NAME </td>
-        <td>TABLE NUMBER </td>
+        <td>BOOKED TABLE </td>
         <td>RESERV TABLE  </td>
         <td>NUMBERE OF SEATS</td>
         <td>DATE</td>
         <td>TIME</td>
-        <td>STATUS</td>
+        
     </thead>
 
     {% for row in table_list %}
     <tr>
         <td>{{row.id}}</td>
         <td>{{row.table_name}}</td>
-        <td>{{row.table_number}}</td>
-        <td>{{row.reservt}}</td>
+        <td>{{row.bkt}}</td>
+         <td>{{row.reservt}}</td>
         <td>{{row.nos}}</td>
         <td>{{row.date}}</td>
         <td>{{row.time}}</td>
-        <td>{{row.status}}</td>
+        
     </tr>
     {% endfor %}
 </table>
@@ -31,9 +31,15 @@
     <h3>Choose table to book</h3>
     {% csrf_token %}
     <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">Table Number </label>
+        <label for="example-email-input" class="col-2 col-form-label">Table Id </label>
         <div class="col-5">
-            <input name='table_number' class="form-control" type="number" id="example-email-input" max="10" min="1" required>
+            <input name='table_id' class="form-control" type="number" id="example-email-input" max="20" min="1" required>
+        </div>
+    </div>
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">reservt </label>
+        <div class="col-5">
+            <input name='reservt' class="form-control" type="number" max="20" min="1" required>
         </div>
     </div>
     <br>

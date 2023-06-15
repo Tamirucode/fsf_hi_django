@@ -6,11 +6,10 @@
         <div class="col-sm-6 mx-auto" style="margin-top: 70px">
             <form action="{% url 'signout' %}" method="post">
                 {% csrf_token %}
-                {{user}} successful login! {{id}}
+               <h1> {{user}} successful login! {{id}}</h1>
 
 
-               
-            </form>
+               </form>
         </div>
     </div>
 

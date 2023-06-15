@@ -5,9 +5,9 @@ from django.db import models
 
 class Table(models.Model):
     table_name = models.CharField(max_length=20)
-    table_number = models.DecimalField(decimal_places=0, max_digits=2)
     nos = models.DecimalField(decimal_places=0, max_digits=2)
-    reservt = models.DecimalField(decimal_places=0,default=10, max_digits=2)
+    reservt = models.DecimalField(decimal_places=0, default=10, max_digits=2)
+    booked_table = models.DecimalField(decimal_places=0, default=1, max_digits=2)
     date = models.DateField()
     time = models.TimeField()
 
@@ -26,22 +26,17 @@ class User(models.Model):
 
 
 class Book(models.Model):
-    BOOKED = 'B'
-    CANCELLED = 'C'
-
-    TABLE_STATUSES = ((BOOKED, 'Booked'),
-                      (CANCELLED, 'Cancelled'),)
+    
     email = models.EmailField()
     name = models.CharField(max_length=20)
     userid = models.DecimalField(decimal_places=0, max_digits=2)
     tableid = models.DecimalField(decimal_places=0, max_digits=2)
     table_name = models.CharField(max_length=20)
-    table_number = models.DecimalField(decimal_places=0, max_digits=2)
+    reservt = models.DecimalField(decimal_places=0, default=10, max_digits=2)
+    booked_table = models.DecimalField(decimal_places=0, default=1, max_digits=2)
     nos = models.DecimalField(decimal_places=0, max_digits=2)
     date = models.DateField()
     time = models.TimeField()
-    status = models.CharField(choices=TABLE_STATUSES,
-                              default=CANCELLED, max_length=2)
-
+    
     def __str__(self):
         return self.email
