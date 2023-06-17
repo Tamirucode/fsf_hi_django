@@ -44,14 +44,15 @@ def bookings(request):
     context = {}
     if request.method == 'POST':
         id_table = request.POST.get('table_id')
-        reservt = request.POST.get('reservt')
+        booked_table =int(request.POST.get('booked_table'))
         
         table = Table.objects.get(id=id_table)
         if table:
-            if table.reservt > int(bkt):
+            if table.reservt >= int(booked_table):
                 table_name = table.table_name
                 date = table.date
                 booked_table= table.booked_table
+                nos= table.nos
                 time = table.time
                 username = request.user.username 
                 email = request.user.email
@@ -59,10 +60,10 @@ def bookings(request):
                 x = table.reservt - booked_table
                 Table.objects.filter(id=id_table).update(reservt=x)
                 book = Book.objects.create(name=username, email=email, tableid=id_table, userid=user_id,
-                                            table_name=table_name, reservt=reservt, booked_table=booked_table,
+                                            table_name=table_name,  booked_table=booked_table,
                                            nos=nos, date=date, time=time)
 
-                
+                print('------------book id-----------', book.id)
                 book.save()
                 
                 return render(request, 'tam/bookings.html', locals())
@@ -79,14 +80,14 @@ def deleting(request):
     context = {}
     if request.method == 'POST':
         id_table= request.POST.get('table_id')
-        # seats_r = int(request.POST.get('no_seats'))
+        #booked_table  = int(request.POST.get('booked_table'))
 
         try:
             book = Book.objects.get(id=id_table)
             table = Table.objects.get(id=book.tableid)
             x = table.reservt + book.booked_table
             Table.objects.filter(id=book.tableid).update(reservt=x)
-            # nos_r = book.nos - seats_r
+            # reservt = table.reservt - booked_table
             Book.objects.filter(id=id_table).delete()
             Book.objects.filter(id=id_table).update(booked_table=0)
             return redirect('mybookings')
@@ -98,7 +99,7 @@ def deleting(request):
 
 
 @login_required(login_url='signin')
-def mybookings(request, new={}):
+def mybookings(request):
     context = {}
     id_table= request.user.id
     book_list = Book.objects.filter(userid = id_table)
@@ -146,6 +147,17 @@ def signin(request):
         context["error"] = "You are not logged in"
         return render(request, 'tam/signin.html', context)
 
+def rebookings(request):
+    context = {}
+    username = request.user.username 
+    re_book = User.objects.filter(username = username)
+    if re_book.exists:
+        return render(request, 'tam/table_book.html', locals())
+            # return HttpResponseRedirect('')
+    else:
+        context["error"] = "Provide valid table id"
+        return render(request, 'tam/findtable.html', context)
+   
 
 def signout(request):
     context = {}

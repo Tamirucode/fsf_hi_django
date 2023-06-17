@@ -16,14 +16,19 @@
 
     {% for row in table_list %}
     <tr>
+       
         <td>{{row.id}}</td>
         <td>{{row.table_name}}</td>
-        <td>{{row.bkt}}</td>
-         <td>{{row.reservt}}</td>
+        <td>{{row.booked_table}}</td>
+        <td>{{row.reservt}}</td>
         <td>{{row.nos}}</td>
         <td>{{row.date}}</td>
         <td>{{row.time}}</td>
-        
+    
+
+        {% if table_list in table_lists %}
+        <td><h3> you already booked </h3></td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
@@ -33,22 +38,28 @@
     <div class="col-auto">
         <label for="example-email-input" class="col-2 col-form-label">Table Id </label>
         <div class="col-5">
-            <input name='table_id' class="form-control" type="number" id="example-email-input" max="20" min="1" required>
+            <input name='table_id' class="form-control" type="number"  required>
         </div>
     </div>
     <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">reservt </label>
+        <label for="example-email-input" class="col-2 col-form-label">Booked table </label>
         <div class="col-5">
-            <input name='reservt' class="form-control" type="number" max="20" min="1" required>
+            <input name='booked_table' class="form-control" type="number" value ="1" required>
+        </div>
+    </div>
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">Number of Seats </label>
+        <div class="col-5">
+            <input name='nos' class="form-control" type="number" max ="5" min="1" required>
         </div>
     </div>
     <br>
-    <div class="">
+    <div class="col-auto">
        <button type="submit" class="btn btn-success center" >Book now </button>
     </div>
     
  {{error}}
-
+ 
 </form>
 
 {% endblock %}

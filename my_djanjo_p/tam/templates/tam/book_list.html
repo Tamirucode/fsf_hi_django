@@ -8,7 +8,7 @@
         <td>USERNAME</td>
         <td>TABLE NAME</td>
         <td>BOOKED TABLE </td>
-        <td>RESERVE TABLE</td>
+       
         <td>NUM OF SEATS</td>
         <td>DATE</td>
         <td>TIME</td>
@@ -17,16 +17,12 @@
 
     {% for row in book_list %}
     <tr>
-        {% if table.booked %}
-        <td><h3>you have already book {{book.reservt}}</h3></td>
-        <td><h3>Date of booking:{{book.date}}</h3></td>
-        <td><h3>Time of booking:{{book.time}}</h3></td>
-        {% endif %}
+       
         <td>{{row.id}}</td>
         <td>{{row.name}}</td>
         <td>{{row.table_name}}</td>
-        <td>{{row.reservt}}</td>
-        <td>{{row.bkt}}</td>
+       
+        <td>{{row.booked_table}}</td>
         <td>{{row.nos}}</td>
         <td>{{row.date}}</td>
         <td>{{row.time}}</td>
