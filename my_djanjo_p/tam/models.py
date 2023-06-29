@@ -5,7 +5,7 @@ from django.db import models
 
 class Table(models.Model):
     table_name = models.CharField(max_length=20)
-    nos = models.DecimalField(decimal_places=0, max_digits=2)
+    
     reservt = models.DecimalField(decimal_places=0, max_digits=2)
     booked_table = models.DecimalField(decimal_places=0, max_digits=2)
     date = models.DateField()
@@ -32,9 +32,7 @@ class Book(models.Model):
     userid = models.DecimalField(decimal_places=0, max_digits=2)
     tableid = models.DecimalField(decimal_places=0, max_digits=2)
     table_name = models.CharField(max_length=20)
-   
     booked_table = models.DecimalField(decimal_places=0, max_digits=2)
-    nos = models.DecimalField(decimal_places=0, max_digits=2)
     date = models.DateField()
     time = models.TimeField()
     

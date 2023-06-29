@@ -52,7 +52,7 @@ def bookings(request):
                 table_name = table.table_name
                 date = table.date
                 booked_table= table.booked_table
-                nos= table.nos
+               
                 time = table.time
                 username = request.user.username 
                 email = request.user.email
@@ -61,7 +61,7 @@ def bookings(request):
                 Table.objects.filter(id=id_table).update(reservt=x)
                 book = Book.objects.create(name=username, email=email, tableid=id_table, userid=user_id,
                                             table_name=table_name,  booked_table=booked_table,
-                                           nos=nos, date=date, time=time)
+                                            date=date, time=time)
 
                 print('------------book id-----------', book.id)
                 book.save()
@@ -80,7 +80,7 @@ def deleting(request):
     context = {}
     if request.method == 'POST':
         id_table= request.POST.get('table_id')
-        #booked_table  = int(request.POST.get('booked_table'))
+        booked_table  = int(request.POST.get('booked_table'))
 
         try:
             book = Book.objects.get(id=id_table)
