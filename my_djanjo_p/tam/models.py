@@ -5,7 +5,6 @@ from django.db import models
 
 class Table(models.Model):
     table_name = models.CharField(max_length=20)
-    
     reservt = models.DecimalField(decimal_places=0, max_digits=2)
     booked_table = models.DecimalField(decimal_places=0, max_digits=2)
     date = models.DateField()

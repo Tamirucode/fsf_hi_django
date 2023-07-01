@@ -3,7 +3,7 @@
 <h3>{{msg}}</h3>
 <h2>List of Tables</h2>
 <table class="table table-striped">
-    <thead style="background-color: lightgreen;color: black;">
+    <thead >
         <td>BOOKING ID</td>
         <td>USERNAME</td>
         <td>TABLE NAME</td>
@@ -34,7 +34,13 @@
     <div class="col-auto">
         <label for="example-email-input" class="col-2 col-form-label">Booking Id</label>
         <div class="col-5">
-            <input name="booked_table" class="form-control" type="number" id="example-email-input"  required>
+            <input name="table_id" class="form-control" type="number" id="example-email-input"  required>
+        </div>
+    </div>
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">Booked table </label>
+        <div class="col-5">
+            <input name='booked_table' class="form-control" type="number"  max ="1"  min= "1" required>
         </div>
     </div>
 

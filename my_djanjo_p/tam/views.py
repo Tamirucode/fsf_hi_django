@@ -5,21 +5,20 @@ from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import User, Table, Book
-from django.contrib.auth import authenticate, login, logout
+
 from django.contrib.auth.models import User
-from .forms import UserLoginForm, UserRegisterForm
-from django.contrib.auth.decorators import login_required
+
+
 from decimal import Decimal
 
 
 def home(request):
-    if request.user.is_authenticated:
+    
         return render(request, 'tam/home.html')
-    else:
-        return render(request, 'tam/signin.html')
+   
 
 
-@login_required(login_url='signin')
+
 def findtable(request):
     context = {}
     if request.method == 'POST':
@@ -39,7 +38,7 @@ def findtable(request):
         return render(request, 'tam/findtable.html')
 
 
-@login_required(login_url='signin')
+
 def bookings(request):
     context = {}
     if request.method == 'POST':
@@ -75,7 +74,7 @@ def bookings(request):
         return render(request, 'tam/findtable.html')
 
 
-@login_required(login_url='signin')
+
 def deleting(request):
     context = {}
     if request.method == 'POST':
@@ -98,7 +97,7 @@ def deleting(request):
         return render(request, 'tam/findtable.html')
 
 
-@login_required(login_url='signin')
+
 def mybookings(request):
     context = {}
     id_table= request.user.id
@@ -110,63 +109,5 @@ def mybookings(request):
         return render(request, 'tam/book_list.html', context)
 
 
-def signup(request):
-    context = {}
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = User.objects.create_user(name, email, password, )
-        if user:
-            login(request, user)
-            return render(request, 'tam/thank.html')
-        else:
-            context["error"] = "Provide valid credentials"
-            return render(request, 'tam/signup.html', context)
-    else:
-        return render(request, 'tam/signup.html', context)
 
 
-def signin(request):
-    context = {}
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        password = request.POST.get('password')
-        user = authenticate(request, username=name, password=password)
-        if user:
-            login(request, user)
-            # username = request.session['username']
-            context["user"] = name
-            context["id"] = request.user.id
-            return render(request, 'tam/success.html', context)
-            # return HttpResponseRedirect('success')
-        else:
-            context["error"] = "Provide valid credentials"
-            return render(request, 'tam/signin.html', context)
-    else:
-        context["error"] = "You are not logged in"
-        return render(request, 'tam/signin.html', context)
-
-def rebookings(request):
-    context = {}
-    username = request.user.username 
-    re_book = User.objects.filter(username = username)
-    if re_book.exists:
-        return render(request, 'tam/table_book.html', locals())
-            # return HttpResponseRedirect('')
-    else:
-        context["error"] = "Provide valid table id"
-        return render(request, 'tam/findtable.html', context)
-   
-
-def signout(request):
-    context = {}
-    logout(request)
-    context['error'] = "You have been logged out"
-    return render(request, 'tam/signin.html', context)
-
-
-def success(request):
-    context = {}
-    context['user'] = request.user
-    return render(request, 'tam/success.html', context)

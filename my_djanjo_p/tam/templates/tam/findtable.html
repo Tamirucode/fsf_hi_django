@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-sm-6 mx-auto" style="margin-top: 70px">
             
+            
             <h2>Book table</h2>
            
             <form action="{% url 'findtable' %}" method="post">
@@ -23,8 +24,7 @@
                 <div class="pull-right">
                     <button type="submit" class="btn btn-success float-right">Findtable</button>
                 </div>
-                {{error}}
-
+                <h2>{{error}}</h2>
             </form>
         </div>
     </div>
