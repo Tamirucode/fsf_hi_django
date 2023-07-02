@@ -16,17 +16,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body class="d-flex flex-column h-100 main-bg">
-
+    <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-phone d-flex align-items-center"><span></span>WORKING Hours</i>
+        <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 23PM</span></i>
+      </div>
     <!-- Navigation -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">B<span class="red-o">oo</span>k<span
-                        class="thin">My Table</span></span></span></a>
+            <a class="navbar-brand" href="{% url 'home' %}"><span class="brand">Book My Table</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,7 +64,7 @@
         </div>
     </nav>
 
-    <main class="flex-shrink-0 main-bg">
+    <main>
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
@@ -75,5 +78,9 @@
         <i class="fab fa-instagram-square ms-3"></i>
         <i class="fab fa-youtube-square ms-3"></i></p>
 </footer>
-
+<script>
+    document.getElementById("myBtn").addEventListener("click", function(){
+        alert("Are you sure you want to delete this booking");});
+</script>
+</body>
 </html>

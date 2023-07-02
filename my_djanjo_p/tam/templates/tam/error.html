@@ -2,12 +2,29 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 mx-auto" style="margin-top: 70px">
+    
+        <div style="margin-top: 70px">
             <h1>{{error}}</h1>
         </div>
+   
+
+<div class="row font-link font-medium">
+    <div class="col-xs-12 col-12 mb10">
+        <a href="{% url 'home'%}">Go back home page</a>
     </div>
 
 </div>
+<div class="row font-link font-medium">
+    <div class="col-xs-12 col-12 mb10">
+        <a href="{% url 'mybookings'%}" >Cancel a booking</a>
+    </div>
 
+</div>
+<div class="row font-link font-medium">
+    <div class="col-xs-12 col-12 mb10">
+        <a href="{% url 'findtable'%}">New booking</a>
+    </div>
+
+</div>
+</div>
 {% endblock %}

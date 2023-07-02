@@ -1,57 +1,53 @@
 {% extends 'tam/base.html' %}
 {% block content %}
-<h2>Booking Confirmation</h2>
+
+
+
+<div class="container">
+    <div class="row"  style="margin-top: 70px; text-align: center;">
+
 <form action="{% url 'home' %}" method="post">
 
     {% csrf_token %}
-    <h2>Your booking has been confirmed!</h2>
-    <h2>Thank you!</h2>
-    <h3>book detail</h3>
-    <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-        book detail
-    </button>
+    <main class="row book-container">
+        <div class = >
+            <h1 class="thin-text booking-subheader mt30">
+            <span class = "fa fa-check">
+                
+            </span>
+            Thanks {{user}}<strong class="black-text"> -your booking is now confirmed </strong>
 
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Hi {{user}}! This is your booking details</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Table Name:</b> {{book.table_name}}</li>
-                        <li class="list-group-item"><b>Booking Id:</b> {{book.id}}</li>
-                        <li class="list-group-item"><b>Booked Table:</b> {{book.booked_table}}</li>
-                        
-                        <li class="list-group-item"><b>Date:</b> {{book.date}}</li>
-                        <li class="list-group-item"><b>Time:</b> {{book.time}}</li>
-                    </ul>
-
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
+            </h1>
         </div>
+        <div class="font-large">
+        <p>Booking Id:{{book.id}}</p>
+        
+        <p>Booked Table:{{book.booked_table}}</p>
+        <p>Date:{{book.date}}</p>
+        <p>Time:{{book.time}}</p>
+        </div>
+    <div class="row font-link font-medium">
+        <div class="col-xs-12 col-12 mb10">
+            <a href="{% url 'home'%}">Go back home page</a>
+        </div>
+
+    </div>
+    <div class="row font-link font-medium">
+        <div class="col-xs-12 col-12 mb10">
+            <a href="{% url 'mybookings'%}" >Cancel a booking</a>
+        </div>
+
+    </div>
+    <div class="row font-link font-medium">
+        <div class="col-xs-12 col-12 mb10">
+            <a href="{% url 'findtable'%}">New booking</a>
+        </div>
+
     </div>
 
-    <div class="pull-right">
-        <button type="submit" class="btn btn-primary float-right">OK</button>
-    </div>
-
-
+    </main>
+    
 </form>
-
+</div>
 
 {% endblock %}

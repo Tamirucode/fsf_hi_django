@@ -2,30 +2,30 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 mx-auto" style="margin-top: 70px">
-            
+        <div  style="margin-top: 70px">
             
             <h2>Book table</h2>
            
             <form action="{% url 'findtable' %}" method="post">
                 {% csrf_token %}
-                <div class="form-group row">
-                    <label for="example-email-input" class="col-2 col-form-label">Choose Date</label>
-                    <div class="col-10">
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <label for="example-email-input" class="form-label"><p><strong>Date:</strong></p></label>
+                    <div >
                         <input name='date' class="form-control" type="date" required>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="example-email-input" class="col-2 col-form-label">Time</label>
-                    <div class="col-10">
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <label for="example-email-input" class="form-label"><p><strong>Time:</strong></p></label>
+                    <div>
                         <input name='time' class="form-control" type="time" required>
                     </div>
                 </div>
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-success float-right">Findtable</button>
-                </div>
+                
+                    <button type="submit" class="btn btn-success">FIND A TABLE</button>
+                
                 <h2>{{error}}</h2>
             </form>
+        </div>
         </div>
     </div>
 

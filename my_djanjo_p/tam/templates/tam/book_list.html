@@ -1,8 +1,10 @@
 {% extends 'tam/base.html' %}
 {% block content %}
-<h3>{{msg}}</h3>
-<h2>List of Tables</h2>
-<table class="table table-striped">
+ 
+    
+<h3>BOOKING LIST</h3>
+<div class="table-responsive">
+    <table class="table">
     <thead >
         <td>BOOKING ID</td>
         <td>USERNAME</td>
@@ -24,32 +26,34 @@
         <td>{{row.time}}</td>
         
     {% empty %}
-   <tr><td> <h2>You have no booking</h2></td></tr>
+   <tr><td> <h2>You have no upcoming booking</h2></td></tr>
 
     {% endfor %}
 </table>
+</div>
+<div class="container">
+    <div class="row">
 <form action="{% url 'deleting' %}" method="post">
-    <h3>Choose booking id to delete </h3>
+    
     {% csrf_token %}
-    <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">Booking Id</label>
-        <div class="col-5">
+    <div class=" col-lg-4 col-md-6 form-group mb-3">
+        <label for="example-email-input" class="form-label"><p><strong>Booking Id:</strong></p></label>
+        <div>
             <input name="table_id" class="form-control" type="number" id="example-email-input"  required>
         </div>
     </div>
-    <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">Booked table </label>
-        <div class="col-5">
+    <div class=" col-lg-4 col-md-6 form-group mb-3">
+        <label for="example-email-input" class="form-label"><p><strong>Booked Table:</strong></p> </label>
+        <div>
             <input name='booked_table' class="form-control" type="number"  max ="1"  min= "1" required>
         </div>
     </div>
 
-    <br>
-    <br>
-    <div class="pull-right">
-        <button type="submit" class="btn btn-danger float-left">CANCEL BOOKING</button>
-    </div>
-
+     <button type="submit" class="btn btn-danger" id="myBtn">CANCEL BOOKING</button>
+     
 </form>
+</div>
+</div>
+
 
 {% endblock %}
